@@ -2,12 +2,18 @@ import { TStudent } from './student.interface';
 import Student from './student.schema';
 
 const createStudentIntoDB = async (studentData: TStudent) => {
-  // const result = await StudentModel.create(student); //Build in Static Method
-  const student = new Student(studentData);
-  if (await student?.isUserExist(studentData.id)) {
+  const result = await Student.create(studentData); //Build in Static Method
+
+  if (await Student.isUserExist(studentData.id)) {
     throw new Error('Student already exist');
   }
-  const result = await student.save(); //Build in Instant Method
+
+  // const student = new Student(studentData);
+  // if (await student?.isUserExist(studentData.id)) {
+  //   throw new Error('Student already exist');
+  // }
+  // const result = await student.save(); //Build in Instant Method
+
   return result;
 };
 
